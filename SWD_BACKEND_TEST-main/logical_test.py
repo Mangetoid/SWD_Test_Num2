@@ -14,19 +14,16 @@ unit = ("", "สิบ", "ร้อย", "พัน", "หมื่น", "แส
 def unit_process(val):
     length = len(val) > 1
     result = ''
-
     for index, current in enumerate(map(int, val)):
         if current:
             if index:
                 result = unit[index] + result
-               
             if length and current == 1 and index == 0:
                 result += 'เอ็ด'
             elif index == 1 and current == 2:
                 result = 'ยี่' + result
             elif index != 1 or current != 1:
                 result = thai_number[current] + result
-       
     return result
 
 def number_to_text(number):
@@ -35,10 +32,8 @@ def number_to_text(number):
     s_number = str(number)[::-1]
     n_list = [s_number[i:i + 7].rstrip("0") for i in range(0, len(s_number), 7)]
     result = unit_process(n_list.pop(0))
-
     for i in n_list:
         result = unit_process(i) + 'ล้าน' + result
-
     return result
 
 number = int(input("Enter an integer: "))
