@@ -33,12 +33,6 @@ def number_to_roman(number):
 
     return roman_number
 
-
-# Get input from the user
 number = int(input("Enter an integer: "))
-
-# Convert the number to Roman numeral
 roman_number = number_to_roman(number)
-
-# Print the result
 print("Roman Numeral:", roman_number)
