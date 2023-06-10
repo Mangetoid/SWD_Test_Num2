@@ -8,3 +8,38 @@ Convert Number to Thai Text.
 ห้ามใช้ Library อื่น ๆ ที่ต้อง import ในการทำงาน(ยกเว้น ใช้เพื่อการ test การทำงานของฟังก์ชัน).
 
 """
+thai_number = ("ศูนย์", "หนึ่ง", "สอง", "สาม", "สี่", "ห้า", "หก", "เจ็ด", "แปด", "เก้า")
+unit = ("", "สิบ", "ร้อย", "พัน", "หมื่น", "แสน", "ล้าน")
+
+def unit_process(val):
+    length = len(val) > 1
+    result = ''
+
+    for index, current in enumerate(map(int, val)):
+        if current:
+            if index:
+                result = unit[index] + result
+               
+            if length and current == 1 and index == 0:
+                result += 'เอ็ด'
+            elif index == 1 and current == 2:
+                result = 'ยี่' + result
+            elif index != 1 or current != 1:
+                result = thai_number[current] + result
+       
+    return result
+
+def number_to_text(number):
+    if number == 0:
+        return thai_number[0]  
+    s_number = str(number)[::-1]
+    n_list = [s_number[i:i + 7].rstrip("0") for i in range(0, len(s_number), 7)]
+    result = unit_process(n_list.pop(0))
+
+    for i in n_list:
+        result = unit_process(i) + 'ล้าน' + result
+
+    return result
+
+number = int(input("Enter an integer: "))
+print(number_to_text(number))
